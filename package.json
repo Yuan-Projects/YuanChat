@@ -1,0 +1,8 @@
+{
+  "name": "YuanChat",
+  "version": "0.0.1",
+  "description": "YuanChat is a chat application",
+  "devDependencies": {
+    "ws": "^1.1.1"
+  }
+}
