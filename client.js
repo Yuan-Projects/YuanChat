@@ -3,6 +3,17 @@ document.addEventListener('DOMContentLoaded', function(){
   
   ws.onopen = function(e) {
     console.log('Connection to server opened');
+    var request = {
+      type: 'fetchDefault'
+    };
+    ws.send(JSON.stringify(request));
+  };
+  
+  ws.onmessage = function(e) {
+    var data = JSON.parse(e.data);
+    if (Array.isArray(data)) {
+      renderMessages(data);
+    }
   };
   
   ws.onclose = function(e) {
@@ -55,4 +66,27 @@ document.addEventListener('DOMContentLoaded', function(){
         break;
     }
   };
+  
+  var messageContainer = document.querySelector('#messageContainer');
+  var form = document.querySelector('form'),
+      messageControl = form.querySelector('input');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if (ws.readyState === WebSocket.OPEN) {
+      var request = {
+        type: 'createMessage',
+        data: messageControl.value
+      };
+      ws.send(JSON.stringify(request));
+    }
+  });
+  
+  function renderMessages(messages) {
+    var messageDom = messages.map(function(message) {
+      return '<p>' + message + '</p>';
+    });
+    messageContainer.innerHTML += messageDom.join('');
+  }
+  
 });
