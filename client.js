@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function () {
+  var progressBar = document.querySelector('progress');
   var ws = new WebSocket('ws://localhost:8181');
   
   ws.onopen = function(e) {
     console.log('Connection to server opened');
-    document.querySelector('progress').remove();
+    progressBar.remove();
     var request = {
       type: 'fetchDefault'
     };
@@ -66,6 +67,9 @@ document.addEventListener('DOMContentLoaded', function () {
         reason = 'The connection was closed due to a failure to perform a TLS handshake';
         break;
     }
+    progressBar.remove();
+    document.querySelector('#tips').innerHTML = reason;
+    document.querySelector('#tips').style.display = 'block';
   };
   
   var messageContainer = document.querySelector('#messageContainer');

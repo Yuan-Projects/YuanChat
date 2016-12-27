@@ -19,6 +19,10 @@ progress:not([value]) {
   flex-grow: 1;
 }
 
+#tips {
+  display: none;
+}
+
 #formContainer {
   height: 30px;
 }
