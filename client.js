@@ -1,8 +1,9 @@
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
   var ws = new WebSocket('ws://localhost:8181');
   
   ws.onopen = function(e) {
     console.log('Connection to server opened');
+    document.querySelector('progress').remove();
     var request = {
       type: 'fetchDefault'
     };
