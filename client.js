@@ -81,9 +81,6 @@ document.addEventListener('DOMContentLoaded', function(){
       ws.send(JSON.stringify(request));
     }
   });
-  setTimeout(function () {
-    messageControl.focus();
-  }, 0);
   
   function renderMessages(messages) {
     var messageDom = messages.map(function(message) {
