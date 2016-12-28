@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
   };
   
   ws.onmessage = function(e) {
-    var data = JSON.parse(e.data);
-    if (Array.isArray(data)) {
-      renderMessages(data);
+    var response = JSON.parse(e.data);
+    if (Array.isArray(response.data)) {
+      renderMessages(response.data);
     }
   };
   
