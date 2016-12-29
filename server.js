@@ -42,5 +42,15 @@ wss.on('connection', (ws)=> {
         break;
     }
   });
+
+  ws.on('close', () => {
+    console.log('[Notification]', nickName + ' has disconnected');
+    wss.clients.forEach((client) => {
+      client.send(JSON.stringify({
+        type: 'notification',
+        data: [nickName + ' has disconnected']
+      }));
+    });
+  });
   
 });
