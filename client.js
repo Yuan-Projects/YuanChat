@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
         data: messageControl.value
       };
       ws.send(JSON.stringify(request));
+      messageControl.value = '';
     }
   });
   
