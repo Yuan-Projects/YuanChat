@@ -21,6 +21,8 @@ wss.on('connection', (ws)=> {
   });
 
   clientID++;
+
+  console.log('[Info]' + nickName + ' has connected.');
   
   ws.on('message', (message) => {
     var request = JSON.parse(message);
@@ -53,4 +55,8 @@ wss.on('connection', (ws)=> {
     });
   });
   
+});
+
+wss.on('listening', () => {
+  console.log('[Info]The server is listening.');
 });
