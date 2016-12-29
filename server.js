@@ -3,9 +3,10 @@ const WebSocketServer = require('ws').Server,
 
 var clientID = 0;
 var clients = {};
-      
+
 var defaultMessages = ['Congratulations! You have connected successfully.'];
-      
+
+/* The handshake has been completed */
 wss.on('connection', (ws)=> {
   var nickName = 'Anonymous' + clientID;
   clients[nickName] = ws;
@@ -54,9 +55,27 @@ wss.on('connection', (ws)=> {
       }));
     });
   });
+
+  ws.on('error', (error) => {
+    console.error('[Error]', 'The client ' + nickName + ' occurred error:', error);
+  });
   
 });
 
+/* An error occurs on the underlying server */
+wss.on('error', (error) => {
+  console.error('[Error] An error occurred on the underlying server.', error);
+});
+
+/* The server has been bound */
 wss.on('listening', () => {
   console.log('[Info]The server is listening.');
+});
+
+/**  
+ * Emitted before the response headers are written to the socket as part of the handshake. 
+ * This allows you to inspect/modify the headers before they are sent.
+ */
+wss.on('headers', (headers) => {
+  
 });
